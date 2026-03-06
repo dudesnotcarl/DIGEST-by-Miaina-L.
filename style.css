@@ -38,6 +38,22 @@ body {
   button:hover {
     background: #f0ceb2;
   }
+
+  /* --- TIMER PAGE STYLES --- */
+#timerDisplay {
+    font-size: clamp(40px, 12vw, 100px); /* scales between 40px and 100px depending on screen */
+    margin: 10px 0;
+}
+
+#timerLabel {
+    font-size: clamp(24px, 6vw, 50px);
+}
+
+.timerButtons button {
+    padding: clamp(12px, 4vw, 25px) clamp(20px, 6vw, 40px);
+    font-size: clamp(14px, 4vw, 18px);
+}
+
   
   /* ------------------------------
      WHEEL
@@ -46,8 +62,8 @@ body {
     margin-top: 20px;
     z-index: 1;
     border-radius: 50%;
-    width: 100%;
-    max-width: 400px;
+    width: 90%;
+    max-width: 350px;
     height: auto;
   }
   
@@ -60,7 +76,7 @@ body {
   
   #pointer {
     position: absolute;
-    right: -5px;
+    right: -10px;
     top: 50%;
     transform: translateY(-50%);
     width: 0;
@@ -152,5 +168,18 @@ body {
   
     textarea {
       height: 70px;
+    }
+  }
+
+  /* Mobile-specific adjustments */
+    @media (max-width: 480px) {
+        #wheelCanvas {
+        max-width: 250px;  /* smaller wheel for phones */
+    }
+        #pointer {
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 15px solid red;
+        right: -8px;
     }
   }
