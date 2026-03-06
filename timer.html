@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Timer</title>
+<title>Timer by DIGEST</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -18,13 +18,15 @@
 
 <div class="timerButtons">
 
-<button id="pauseBtn" onclick="pauseTimer()">Pause</button>
-
-<button id="readyBtn" onclick="readyNext()">Ready</button>
-
-<button onclick="clearTimer()">Reset</button>
-
-</div>
+    <button id="beginTimerBtn" onclick="beginTimer()">Start</button>
+    
+    <button id="pauseBtn" onclick="pauseTimer()" style="display:none;">Pause</button>
+    
+    <button id="readyBtn" onclick="readyNext()" style="display:none;">Ready</button>
+    
+    <button onclick="clearTimer()">Reset</button>
+    
+    </div>
 
 </div>
 
