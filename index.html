@@ -1,41 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
-<meta charset="UTF-8">
-<title>DIGEST by Miaina L.</title>
-<link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIGEST by Miaina L.</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <div class="container">
 
-<div class="container">
+    <h1>Word Randomiser by DIGEST</h1>
 
-<h1>Word Randomiser by DIGEST</h1>
+    <div id="inputSection">
+      <textarea id="wordInput" placeholder="enter words here separated by commas pretty please"></textarea>
+    </div>
 
-<div id="inputSection">
-    <textarea id="wordInput" placeholder="Enter words here separated by commas"></textarea>
     <button id="spinBtn" onclick="handleSpin()">Spin</button>
     <button id="clearWordsBtn" onclick="clearWords()">Clear</button>
-</div>
 
-<div id="wordList"></div>
+    <div id="wordList"></div>
 
-<div id="wheelContainer">
+    <div id="wheelContainer">
+      <canvas id="wheelCanvas" width="400" height="400"></canvas>
+      <div id="pointer"></div>
+    </div>
 
-<canvas id="wheelCanvas" width="400" height="400"></canvas>
+    <h2 id="selectedWord" style="display:none;"></h2>
+    <button id="startTimerBtn" onclick="goToTimer()">Start Timer</button>
 
-<div id="pointer"></div>
+  </div>
 
-</div>
-
-<h2 id="selectedWord" style="display:none;"></h2>
-
-<button id="startTimerBtn" onclick="goToTimer()">Start Timer</button>
-
-</div>
-
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
