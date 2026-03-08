@@ -9,6 +9,7 @@ body {
   margin: 0;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
@@ -17,8 +18,7 @@ body {
 
 .container {
   text-align: center;
-  width: 100%;
-  max-width: 500px;
+  width: min(100%, 500px);
 }
 
 textarea {
@@ -46,6 +46,8 @@ button:hover {
 
 .mainTitle {
   margin-bottom: 0;
+  line-height: 1.05;
+  text-align: center;
 }
 
 .subTitle {
@@ -258,11 +260,13 @@ footer {
 @media (max-width: 600px) {
   body {
     padding: 16px;
-    align-items: flex-start;
+    justify-content: flex-start;
+    align-items: center;
   }
 
   .mainTitle {
-    font-size: 38px;
+    font-size: clamp(30px, 10vw, 42px);
+    line-height: 1.05;
   }
 
   .subTitle {
@@ -296,6 +300,8 @@ footer {
   footer {
     position: static;
     margin-top: 30px;
+    text-align: center;
+    width: 100%;
   }
 }
 
@@ -305,5 +311,18 @@ footer {
     border-bottom: 10px solid transparent;
     border-right: 15px solid red;
     right: -8px;
+  }
+}
+
+@media (max-width: 600px) {
+  #savedWordsBtn {
+    top: 10px;
+    left: 10px;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .container {
+    margin-top: 70px;
   }
 }
