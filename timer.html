@@ -1,36 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Timer by DIGEST</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timer by DIGEST</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="container">
+  <div class="container">
+    <h1 id="topicWord"></h1>
+    <h2 id="timerLabel">Research / Plan</h2>
+    <h1 id="timerDisplay">05:00</h1>
 
-<h1 id="topicWord"></h1>
-
-<h2 id="timerLabel">Research / Plan</h2>
-
-<h1 id="timerDisplay">05:00</h1>
-
-<div class="timerButtons">
-
-    <button id="beginTimerBtn" onclick="beginTimer()">Start</button>
-    
-    <button id="pauseBtn" onclick="pauseTimer()" style="display:none;">Pause</button>
-    
-    <button id="readyBtn" onclick="readyNext()" style="display:none;">Ready</button>
-    
-    <button onclick="clearTimer()">Reset</button>
-    
+    <div class="timerButtons">
+      <button id="beginTimerBtn" onclick="beginTimer()">Start</button>
+      <button id="pauseBtn" onclick="pauseTimer()" style="display:none;">Pause</button>
+      <button id="readyBtn" onclick="readyNext()" style="display:none;">Ready</button>
+      <button onclick="clearTimer()">Reset</button>
     </div>
+  </div>
 
-</div>
+  <footer>
+    © 2026 by Miaina Luz
+  </footer>  
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>

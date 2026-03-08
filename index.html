@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
@@ -7,27 +7,19 @@
   <title>DIGEST by Miaina L.</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
   <button id="savedWordsBtn" onclick="openSavedUI()">Saved Words</button>
 
-<div id="savedUI">
-
-  <div id="savedPanel">
-
-    <button id="closeSavedBtn" onclick="closeSavedUI()">✕</button>
-
-    <h2>Saved Word Sets</h2>
-
-    <div id="savedContainer"></div>
-
+  <div id="savedUI">
+    <div id="savedPanel">
+      <button id="closeSavedBtn" onclick="closeSavedUI()">✕</button>
+      <h2>Saved Word Sets</h2>
+      <div id="savedContainer"></div>
+    </div>
   </div>
 
-</div>
-
   <div class="container">
-
     <h1 class="mainTitle">Word Randomiser</h1>
     <p class="subTitle">by DIGEST</p>
 
@@ -37,15 +29,11 @@
       <div id="saveControls">
         <button onclick="saveWords()">Save Words</button>
       </div>
-      
     </div>
 
     <div id="controls">
-
       <button id="spinBtn" onclick="handleSpin()">Spin</button>
-        
       <button id="clearWordsBtn" onclick="clearWords()">Clear</button>
-    
     </div>
 
     <div id="wordList"></div>
@@ -57,7 +45,6 @@
 
     <h2 id="selectedWord" style="display:none;"></h2>
     <button id="startTimerBtn" onclick="goToTimer()">Start Timer</button>
-
   </div>
 
   <script src="script.js"></script>
