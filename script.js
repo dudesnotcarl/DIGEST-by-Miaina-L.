@@ -21,6 +21,33 @@ const tickingSound = new Audio("tick.mp3");
 tickingSound.loop = true;
 
 // ------------------------------
+// STORAGE HELPERS
+// ------------------------------
+function saveCurrentWords() {
+  localStorage.setItem("currentWords", JSON.stringify(words));
+}
+
+function loadCurrentWords() {
+  return JSON.parse(localStorage.getItem("currentWords")) || [];
+}
+
+function clearCurrentWords() {
+  localStorage.removeItem("currentWords");
+}
+
+function saveCurrentTopic(word) {
+  localStorage.setItem("topicWord", word);
+}
+
+function loadCurrentTopic() {
+  return localStorage.getItem("topicWord") || "";
+}
+
+function clearCurrentTopic() {
+  localStorage.removeItem("topicWord");
+}
+
+// ------------------------------
 // INITIAL SETUP
 // ------------------------------
 window.onload = function () {
@@ -33,9 +60,30 @@ window.onload = function () {
 
   const topicElement = document.getElementById("topicWord");
   if (topicElement) {
-    const topic = localStorage.getItem("topicWord") || "No topic selected";
+    const topic = loadCurrentTopic() || "No topic selected";
     topicElement.innerText = "Topic: " + topic;
     updateTimer();
+  }
+
+  const inputEl = document.getElementById("wordInput");
+  if (inputEl) {
+    const savedBatch = loadCurrentWords();
+
+    if (savedBatch.length >= 2) {
+      words = savedBatch;
+
+      inputEl.value = words.join("\n");
+      drawWheel();
+
+      document.getElementById("inputSection").style.display = "none";
+      document.getElementById("savedWordsBtn").style.display = "none";
+      document.getElementById("selectedWord").style.display = "none";
+      document.getElementById("startTimerBtn").style.display = "none";
+      document.getElementById("wheelContainer").style.display = "flex";
+      document.getElementById("spinBtn").style.display = "inline-block";
+      document.getElementById("clearWordsBtn").style.display = "inline-block";
+      document.getElementById("wordList").innerText = "Words added: " + words.join(", ");
+    }
   }
 };
 
@@ -167,6 +215,8 @@ function handleSpin() {
       alert("Please keep it to 20 words or less for smoother spinning.");
       return;
     }
+    
+    saveCurrentWords();
 
     document.getElementById("wordList").innerText = "Words added: " + words.join(", ");
     drawWheel();
@@ -207,7 +257,7 @@ function selectWord() {
 
   document.getElementById("startTimerBtn").style.display = "inline-block";
 
-  localStorage.setItem("topicWord", chosen);
+  saveCurrentTopic(chosen);
   selectionSound.play();
 }
 
@@ -215,6 +265,9 @@ function clearWords() {
   words = [];
   angle = 0;
   spinning = false;
+
+  clearCurrentWords();
+  clearCurrentTopic();
 
   document.getElementById("wordInput").value = "";
   document.getElementById("wordList").innerText = "";
@@ -249,12 +302,17 @@ function beginTimer() {
   const beginBtn = document.getElementById("beginTimerBtn");
   const pauseBtn = document.getElementById("pauseBtn");
   const readyBtn = document.getElementById("readyBtn");
+  const continueBtn = document.getElementById("continueBtn");
   const label = document.getElementById("timerLabel");
-
+  
   if (label) label.innerText = "Research / Plan";
   if (beginBtn) beginBtn.style.display = "none";
-  if (pauseBtn) pauseBtn.style.display = "inline-block";
+  if (pauseBtn) {
+    pauseBtn.style.display = "inline-block";
+    pauseBtn.innerText = "⏸";
+  }
   if (readyBtn) readyBtn.style.display = "inline-block";
+  if (continueBtn) continueBtn.style.display = "none";
 
   updateTimer();
 
@@ -281,8 +339,17 @@ function startTimer() {
         goToExplainPhase();
       } else if (currentPhase === "explain") {
         clearInterval(timer);
+    
         timerEndSound.currentTime = 0;
         timerEndSound.play().catch(() => {});
+    
+        const pauseBtn = document.getElementById("pauseBtn");
+        const readyBtn = document.getElementById("readyBtn");
+        const continueBtn = document.getElementById("continueBtn");
+    
+        if (pauseBtn) pauseBtn.style.display = "none";
+        if (readyBtn) readyBtn.style.display = "none";
+        if (continueBtn) continueBtn.style.display = "inline-block";
       }
     }
   }, 1000);
@@ -315,7 +382,9 @@ function pauseTimer() {
   paused = !paused;
 
   const btn = document.getElementById("pauseBtn");
-  if (btn) btn.innerText = paused ? "Resume" : "Pause";
+  if (btn) {
+    btn.innerText = paused ? "▶" : "⏸";
+  }
 
   if (paused) {
     tickingSound.pause();
@@ -340,7 +409,40 @@ function clearTimer() {
   timerEndSound.pause();
   timerEndSound.currentTime = 0;
 
+  clearCurrentWords();
+  clearCurrentTopic();
+
   location.href = "index.html";
+}
+
+function continueBatch() {
+  const currentTopic = loadCurrentTopic();
+  let currentWords = loadCurrentWords();
+
+  if (!currentTopic || currentWords.length === 0) {
+    clearCurrentWords();
+    clearCurrentTopic();
+    window.location.href = "index.html";
+    return;
+  }
+
+  const indexToRemove = currentWords.indexOf(currentTopic);
+  if (indexToRemove !== -1) {
+    currentWords.splice(indexToRemove, 1);
+  }
+
+  if (currentWords.length < 2) {
+    clearCurrentWords();
+    clearCurrentTopic();
+    alert("Batch complete. Please enter a new set of words.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  localStorage.setItem("currentWords", JSON.stringify(currentWords));
+  clearCurrentTopic();
+
+  window.location.href = "index.html";
 }
 
 function updateTimer() {
